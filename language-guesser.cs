@@ -22,12 +22,26 @@ namespace LanguageGuesser {
             foreach (var language in languages) {
                 Language dat = language.Key;
                 string lang = language.Value;
-                if (dat.LanguageCorrect(init, block, vardef, classword)) {
+                if (dat.LanguageCorrect(init, block, vardef, classword))
                     correctLanguage = lang;
-                }
             }
             if (correctLanguage == "") {
                 Console.WriteLine("I do not know this language.");
+                Console.WriteLine("What language is this? (capitalize the first letter)");
+                correctLanguage = Console.ReadLine();
+                foreach (var val in languages) {
+                    var lang = val.Value;
+                    var dat = val.Key;
+                    if (correctLanguage == lang) {
+                        Console.WriteLine("According to my dataase, you got your info wrong.");
+                        Console.WriteLine("The answer to the first question was {0} and you answered {1}", dat.init, init);
+                        Console.WriteLine("The answer to the second question was {0} and you answered {1}", dat.block, block);
+                        Console.WriteLine("The answer to the third question was {0} and you answered {1}", dat.vardef, vardef);
+                        Console.WriteLine("The answer to the fourth question was {0} and you answered {1}", dat.classword, classword); 
+                    } else {
+                        
+                    }
+                }
             } else {
                 Console.WriteLine("I think your language is "+correctLanguage);
             }
@@ -37,16 +51,16 @@ namespace LanguageGuesser {
         public string init;
         public string block;
         public string vardef;
-        public string classword
+        public string classword;
         
-        Language(string init, string block, string vardef, string classword) {
+        public Language(string init, string block, string vardef, string classword) {
             this.init = init;
             this.block = block;
             this.vardef = vardef;
             this.classword = classword;
         }
         
-        public LanguageCorrect(string init, string block, string vardef, string classword) {
+        public bool LanguageCorrect(string init, string block, string vardef, string classword) {
             return this.init == init && this.block == block && this.vardef == vardef && this.classword == classword;
         }
     }
